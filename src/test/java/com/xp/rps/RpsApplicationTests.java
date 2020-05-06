@@ -42,4 +42,28 @@ class RpsApplicationTests {
 		assertEquals(game.getPlayer1(), response.getBody().getPlayer1());
 		assertEquals(game.getPlayer2(), response.getBody().getPlayer2());
 	}
+
+	@Test
+	public void playGame() {
+		Game game = new Game("player1", "player2", 3);
+		ResponseEntity<Integer> createGameResponse = restTemplate.postForEntity("/game", game, Integer.class);
+
+		Round round = new Round(Throw.PAPER, Throw.ROCK);
+		ResponseEntity<Result> response = restTemplate.postForEntity("/play/1", round, Result.class);
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(Result.P1_WINS, response.getBody());
+	}
+
+	@Test
+	public void getGameResult() {
+		Game game = new Game("player1", "player2", 3);
+		ResponseEntity<Integer> createGameResponse = restTemplate.postForEntity("/game", game, Integer.class);
+		Round round = new Round(Throw.PAPER, Throw.ROCK);
+		ResponseEntity<Result> playResponse = restTemplate.postForEntity("/play/1", round, Result.class);
+
+		ResponseEntity<GameResult> response = restTemplate.getForEntity("/result/1", GameResult.class);
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(Result.P1_WINS, response.getBody().getResult());
+	}
+
 }

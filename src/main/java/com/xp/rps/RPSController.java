@@ -19,4 +19,17 @@ public class RPSController {
     public Game getGame(@PathVariable int id) {
         return rpsRepository.getGame(id);
     }
+
+    @PostMapping("/play/{id}")
+    public Result playGame(@PathVariable int id, @RequestBody Round userInput) {
+        Result result = RPS.play(userInput.getThrow1(), userInput.getThrow2());
+        userInput.setResult(result);
+        rpsRepository.recordRoundResult(id, userInput);
+        return result;
+    }
+
+    @GetMapping("/result/{id}")
+    public GameResult getResult(@PathVariable int id) {
+        return rpsRepository.getGameResult(id);
+    }
 }

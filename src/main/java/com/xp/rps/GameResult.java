@@ -6,9 +6,13 @@ import java.util.List;
 public class GameResult {
     private Game game;
     private List<Round> roundList = new ArrayList<>();
-    //TODO: Final Result
+    private Result finalResult;
 
     public GameResult() {
+    }
+
+    public GameResult(Game game) {
+        this.game = game;
     }
 
     public Result getResult() {
@@ -44,5 +48,9 @@ public class GameResult {
 
     public void setRoundList(List<Round> roundList) {
         this.roundList = roundList;
+    }
+
+    public void setFinalResult(Result finalResult) {
+        this.finalResult = finalResult;
     }
 }

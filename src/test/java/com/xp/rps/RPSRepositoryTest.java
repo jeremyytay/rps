@@ -3,7 +3,10 @@ package com.xp.rps;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class RPSRepositoryTest {
     private RPSRepository rpsRepository;
@@ -30,4 +33,14 @@ public class RPSRepositoryTest {
         assertEquals("player1", result.getPlayer1());
         assertEquals("player2", result.getPlayer2());
     }
+
+    @Test
+    public void testRecordRoundResult() {
+        rpsRepository.createGame(game);
+        Round round = new Round(Throw.PAPER, Throw.ROCK);
+        round.setResult(Result.P1_WINS);
+        GameResult gameResult = rpsRepository.recordRoundResult(1, round);
+        assertEquals(Result.P1_WINS, gameResult.getResult());
+    }
+
 }
