@@ -1,0 +1,8 @@
+---
+applications:
+  - name: rps-jeremy
+    path: build/libs/rps-0.0.1-SNAPSHOT.jar
+    routes:
+      - route: rps-jeremy.cfapps.io
+    env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+}}'
