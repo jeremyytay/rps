@@ -6,13 +6,17 @@ import java.util.List;
 public class GameResult {
     private Game game;
     private List<Round> roundList = new ArrayList<>();
-    private Result finalResult;
 
     public GameResult() {
     }
 
     public GameResult(Game game) {
         this.game = game;
+    }
+
+    public GameResult(Game game, List<Round> roundList) {
+        this.game = game;
+        this.roundList = roundList;
     }
 
     public Result getResult() {
@@ -54,7 +58,4 @@ public class GameResult {
         this.roundList = roundList;
     }
 
-    public void setFinalResult(Result finalResult) {
-        this.finalResult = finalResult;
-    }
 }

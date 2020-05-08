@@ -1,6 +1,7 @@
 package com.xp.rps;
 
 public class Round {
+    private int roundId;
     private Throw throw1;
     private Throw throw2;
     private Result result;
@@ -11,6 +12,27 @@ public class Round {
     public Round(Throw throw1, Throw throw2) {
         this.throw1 = throw1;
         this.throw2 = throw2;
+    }
+
+    public Round(int roundId, Throw throw1, Throw throw2) {
+        this.roundId = roundId;
+        this.throw1 = throw1;
+        this.throw2 = throw2;
+    }
+
+    public Round(int roundId, Throw throw1, Throw throw2, Result result) {
+        this.roundId = roundId;
+        this.throw1 = throw1;
+        this.throw2 = throw2;
+        this.result = result;
+    }
+
+    public int getRoundId() {
+        return roundId;
+    }
+
+    public void setRoundId(int roundId) {
+        this.roundId = roundId;
     }
 
     public Throw getThrow1() {

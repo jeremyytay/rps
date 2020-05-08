@@ -9,6 +9,13 @@ public class Game {
     public Game() {
     }
 
+    public Game(int id, String player1, String player2, int round) {
+        this.id = id;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.round = round;
+    }
+
     public Game(String player1, String player2, int round) {
         this.player1 = player1;
         this.player2 = player2;

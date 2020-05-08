@@ -32,10 +32,10 @@ class RpsApplicationTests {
 	public void getGame() {
 		Game game = new Game("player1", "player2", 3);
 		ResponseEntity<Integer> createGameResponse = restTemplate.postForEntity("/game", game, Integer.class);
-
-		ResponseEntity<Game> response = restTemplate.getForEntity("/game/1", Game.class);
+		int gameId = createGameResponse.getBody();
+		ResponseEntity<Game> response = restTemplate.getForEntity("/game/" + gameId, Game.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(createGameResponse.getBody(), response.getBody().getId());
+		assertEquals(gameId, response.getBody().getId());
 		assertEquals(game.getPlayer1(), response.getBody().getPlayer1());
 		assertEquals(game.getPlayer2(), response.getBody().getPlayer2());
 	}
