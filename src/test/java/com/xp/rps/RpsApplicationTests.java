@@ -7,11 +7,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RpsApplicationTests {
@@ -49,9 +46,11 @@ class RpsApplicationTests {
 		ResponseEntity<Integer> createGameResponse = restTemplate.postForEntity("/game", game, Integer.class);
 
 		Round round = new Round(Throw.PAPER, Throw.ROCK);
-		ResponseEntity<Result> response = restTemplate.postForEntity("/play/1", round, Result.class);
+		ResponseEntity<Round> response = restTemplate.postForEntity("/play/1", round, Round.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(Result.P1_WINS, response.getBody());
+		assertEquals(Result.P1_WINS, response.getBody().getResult());
+		assertEquals(Throw.PAPER, response.getBody().getThrow1());
+		assertEquals(Throw.ROCK, response.getBody().getThrow2());
 	}
 
 	@Test
@@ -59,7 +58,7 @@ class RpsApplicationTests {
 		Game game = new Game("player1", "player2", 3);
 		ResponseEntity<Integer> createGameResponse = restTemplate.postForEntity("/game", game, Integer.class);
 		Round round = new Round(Throw.PAPER, Throw.ROCK);
-		ResponseEntity<Result> playResponse = restTemplate.postForEntity("/play/1", round, Result.class);
+		ResponseEntity<Round> playResponse = restTemplate.postForEntity("/play/1", round, Round.class);
 
 		ResponseEntity<GameResult> response = restTemplate.getForEntity("/result/1", GameResult.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());

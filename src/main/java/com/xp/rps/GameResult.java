@@ -34,6 +34,10 @@ public class GameResult {
         return result;
     }
 
+    public void addRound(Round round) {
+        roundList.add(round);
+    }
+
     public Game getGame() {
         return game;
     }
